@@ -21,7 +21,7 @@ function AddHabit() {
     };
 
     const handleClick = () => {
-        dispatch(addHabitAsync({userId: user_id, habit_name: formData.habit_name, description: formData.description}))
+        dispatch(addHabitAsync({user_id: user_id, habit_name: formData.habit_name, description: formData.description}))
 
         setFormData({habit_name: "", description: ""})
     }

@@ -22,7 +22,7 @@ export const habitListSlice = createSlice({
             state.value = action.payload;
         },
         editHabit: (state, action) => {
-            state.value.splice(action.payload.habitIndex, 0, action.payload.habit);
+            state.value.splice(action.payload.habitIndex, 1, action.payload.habit);
         },
         completeHabit: (state, action) => {
             state.value[action.payload].isChecked = !state.value[action.payload].isChecked;
@@ -35,11 +35,11 @@ export const { addHabit, removeHabit, fetchHabits, editHabit,completeHabit } = h
 // thunks
 
 // adds habit to the db and to the habitListReducer
-export const addHabitAsync = ({ userId, habit_name, description }) => (dispatch) => {
+export const addHabitAsync = ({ user_id, habit_name, description }) => (dispatch) => {
     axios.post('http://localhost:3200/api/habits/createHabit', {
         habit_name: habit_name,
         description: description,
-        user_id: userId
+        user_id: user_id
     })
 
     dispatch(addHabit({ habit_name, description }))
@@ -47,9 +47,9 @@ export const addHabitAsync = ({ userId, habit_name, description }) => (dispatch)
 
 
 // removes a habit forom db and from the habitListReducer
-export const removeHabitAsync = ({ userId, habit_name }) => (dispatch, getState) => {
+export const removeHabitAsync = ({ user_id, habit_name }) => (dispatch, getState) => {
     axios.post('http://localhost:3200/api/habits/deleteHabit', {
-        user_id: userId,
+        user_id: user_id,
         habit_name: habit_name
     })
 
@@ -61,10 +61,10 @@ export const removeHabitAsync = ({ userId, habit_name }) => (dispatch, getState)
 }
 
 // fetches all the habits that belong to the user from db and assigns their values to the habitListReducer
-export const fetchHabitsAsync = (userId) => (dispatch) => {
+export const fetchHabitsAsync = (user_id) => (dispatch) => {
     console.log("fetching data");
 
-    axios.get(`http://localhost:3200/api/habits/${userId}`)
+    axios.get(`http://localhost:3200/api/habits/${user_id}`)
         .then(function (response) {
             const formattedDate = dateFormatter();
 
@@ -82,19 +82,19 @@ export const fetchHabitsAsync = (userId) => (dispatch) => {
 }
 
 // edits an existing habit both in the db and habitListReducer
-export const editHabitAsync = ({ userId, habit_name, new_habit_name, new_description }) => (dispatch, getState) => {
+export const editHabitAsync = ({ user_id, habit_name, new_habit_name, new_description }) => (dispatch, getState) => {
     axios.post('http://localhost:3200/api/habits/editHabit', {
-        user_id: userId,
-        habit_hame: habit_name,
+        user_id: user_id,
+        habit_name: habit_name,
         new_habit_name: new_habit_name,
         new_description: new_description
     })
 
     const state = getState();
 
-    const indexToEdit = state.habitList.findIndex(habit => habit.habit_name === habit_name);
+    const indexToEdit = state.habitList.value.findIndex(habit => habit.habit_name === habit_name);
 
-    const habit = state.habitList[indexToEdit];
+    var habit = state.habitList.value[indexToEdit];
 
     habit = {
         habit_name: new_habit_name,
@@ -105,8 +105,8 @@ export const editHabitAsync = ({ userId, habit_name, new_habit_name, new_descrip
     dispatch(editHabit({ habitIndex: indexToEdit, habit: habit }));
 }
 
-// complete or uncomplete the habit, requires userId and habit_name
-export const completeHabitAsync = ({ userId, habit_name }) => (dispatch, getState) => {
+// complete or uncomplete the habit, requires user_id and habit_name
+export const completeHabitAsync = ({ user_id, habit_name }) => (dispatch, getState) => {
     const formattedDate = dateFormatter();
 
     const state = getState();
@@ -115,17 +115,17 @@ export const completeHabitAsync = ({ userId, habit_name }) => (dispatch, getStat
 
     if (state.habitList.value[indexToEdit].isChecked == false){
         axios.post('http://localhost:3200/api/habits/appendToDates', {
-            user_id: userId,
+            user_id: user_id,
             habit_name: habit_name
         })
     } else {
         axios.post('http://localhost:3200/api/habits/deleteFromDates', {
-            user_id: userId,
+            user_id: user_id,
             habit_name: habit_name
         })
     }
 
-    console.log(userId + " " + habit_name)
+    console.log(user_id + " " + habit_name)
 
     dispatch(completeHabit(indexToEdit));
 }

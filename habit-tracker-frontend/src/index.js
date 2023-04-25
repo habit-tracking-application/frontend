@@ -20,9 +20,6 @@ const router = createBrowserRouter(
         loader = {habitListLoader}
       >
         <Route
-          path="edit/"
-        />
-        <Route
         loader={habitListLoader}
           path="create/"
           element={<AddHabit/>}
