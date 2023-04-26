@@ -6,7 +6,7 @@ import app from "../styles/app.css"
 function App({params}) {
   return (
     <div className="App">
-      <h1>Habit Tracker</h1>
+      <h1 className="header_text">Habit Tracker</h1>
       <Outlet />
     </div>
   );

@@ -1,0 +1,27 @@
+.add_habit_component{
+    text-align: center;
+}
+
+.add_habit_label{
+    padding-top: 8px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+p{
+    margin: 0;
+}
+
+.habit_label{
+    flex: 0.4;
+
+}
+
+.habit_form_unused{
+    flex: 2;
+}
+
+.habit_input{
+    flex: 2;
+}

@@ -2,6 +2,7 @@ import { addHabitAsync } from "../slices/habitListSlice";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import "../styles/addHabit.css"
 
 function AddHabit() {
     const dispatch = useDispatch();
@@ -28,26 +29,31 @@ function AddHabit() {
 
 
     return (
-        <div>
-            <form >
-                <label>
-                    Name:
+        <div className="add_habit_component">
+            <form>
+                <label className="add_habit_label">
+                    <div className="habit_form_unused"></div>
+                    <p className="habit_label">Name:</p>
                     <input
+                        className="habit_input"
                         type="text"
                         name="habit_name"
                         value={formData.habit_name}
                         onChange={handleChange}
                     />
+                    <div className="habit_form_unused"></div>
                 </label>
-                <br />
-                <label>
-                    Description:
+                <label className="add_habit_label">
+                    <div className="habit_form_unused"></div>
+                    <p className="habit_label">Description:</p>
                     <input
+                        className="habit_input"
                         type="text"
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
                     />
+                    <div className="habit_form_unused"></div>
                 </label>
                 <br />
             </form>

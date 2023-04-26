@@ -13,9 +13,16 @@
     align-items: center; 
 }
 
+.habit_unused_space{
+    flex: 1;
+}
+
+
+
 .habit_component{
     padding: 20px;
     margin-right: 10vw;
+    flex: 2;
 }
   
 .checkbox input {
@@ -41,4 +48,16 @@
 
 .checkbox input:checked ~ .checkmark {
     background-color: red;
+}
+
+.delete_button{
+    margin-left: 10px;
+}
+
+.edit_input{
+    width: 100%;
+}
+
+.edit_component{
+    flex: 2.5;
 }

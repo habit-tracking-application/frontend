@@ -4,6 +4,7 @@ import { habitListSelector, fetchHabitsAsync } from "../slices/habitListSlice";
 import { useEffect, useState } from "react";
 import { useLoaderData, useLocation } from "react-router-dom";
 import { Outlet, Link } from "react-router-dom";
+import "../styles/habitList.css"
 
 export async function loader({params}){
     return params.user_id;
@@ -44,7 +45,9 @@ function HabitList() {
                 )
             }
             )}
-            <Link to={linkValue} relative="path" onClick={handleClick}>Create New Habit</Link>
+            <div className="create_habit_button">
+                <Link to={linkValue} relative="path" onClick={handleClick}>Create New Habit</Link>
+            </div>
             <Outlet/>
         </div>
     )

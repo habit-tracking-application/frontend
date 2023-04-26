@@ -43,10 +43,6 @@ function Habit(props) {
 
     // dispatches the Edit Habit Async to react reducer, changes the specified habit, and leaves edit mode
     const handleEditClick = () => {
-        //console.log(user_id);
-        //console.log(props.name);
-        //console.log(habitName);
-        //console.log(habitDescription);
         setIsEditMode(false);
         dispatch(editHabitAsync({user_id: user_id, habit_name: props.name, new_habit_name: habitName, new_description: habitDescription}));
     }
@@ -62,11 +58,14 @@ function Habit(props) {
             <div>
                 <div className="container">
                     <div className="habit">
+                        <div className="habit_unused_space"></div>
                         <button className="delete_button" onClick={handleEditClick}>Save</button>
-                        <div className="habit_component">
-                            <input type="text" value={habitName} onChange={handleHabitNameChange} />
-                            <textarea value={habitDescription} onChange={handleHabitDescriptionChange} />
+                        <div className="edit_component">
+                            <input className="edit_input" type="text" value={habitName} onChange={handleHabitNameChange} />
+                            <br/>
+                            <textarea className="edit_input" value={habitDescription} onChange={handleHabitDescriptionChange} />
                         </div>
+                        <div className="habit_unused_space"></div>
                     </div>
                 </div>
             </div>
@@ -77,6 +76,7 @@ function Habit(props) {
 
                 <div className="container">
                     <div className="habit">
+                        <div className="habit_unused_space"></div>
                         <button onClick={enterEditMode}>Edit</button>
                         <button className="delete_button" onClick={handleClick}>Delete</button>
                         <div className="habit_component">
@@ -91,6 +91,7 @@ function Habit(props) {
                             />
                             <span className="checkmark"></span>
                         </label>
+                        <div className="habit_unused_space"></div>
                     </div>
                 </div>
             </div>
